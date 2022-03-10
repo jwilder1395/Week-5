@@ -1,0 +1,129 @@
+class Student{
+    constructor(name, grade){
+        this.name = name;
+        this.grade = grade;
+    }
+    describe(){
+        return `${this.name} is a ${this.grade}.`;
+    }
+}
+
+class Homeroom{
+    constructor(number){
+        this.number = number;
+        this.students = [];
+    }
+    addStudent(student){
+        if(student instanceof Student){
+            this.students.push(student);
+        }else{
+            throw new Error(`You can only add students. Argument is not a Student: ${student}.`);
+        }
+    }
+    describe(){
+        return `${this.number} has ${this.students.length} students.`;
+    }
+}
+
+class Menu{
+    constructor(){
+        this.homeroom = [];
+        this.selectedHomeroom = null;
+    }
+start(){
+    let selection = this.showMainMenuOptions();
+    while(selection != 0){
+        switch(selection){
+            case '1':
+                this.createHomeroom();
+                break;
+            case '2':
+                this.viewHomeroom;
+                break;
+            case '3':
+                this.deleteHomeroom;
+                break;
+            case '4':
+                this.displayHomerooms;
+                break;
+            default:
+                selection = 0;
+        }
+        selection = this.showMainMenuOptions();
+    }
+    alert('See ya!');
+}
+showMainMenuOptions(){
+    return prompt(`
+    0) Exit
+    1) Create Homeroom
+    2) View Homeroom
+    3) Delete Homeroom
+    4) View All Homerooms
+    `);
+}
+
+showHomeroomMenuOptions(homeroomInfo){
+    return prompt(`
+    0) Back
+    1) Create Student
+    2) Delete Student
+    ------------------
+    ${homeroomInfo}
+    `);
+}
+
+displayHomerooms(){
+    let homeroomString = ' ';
+    for(let i = 0; i , this.homerooms.length; i++){
+        homeroomString += i + ' )' + this.homerooms[i].number + ' \n';
+    }
+    alert(homeroomString);
+}
+createHomeroom(){
+    let number = prompt('Enter number for new homeroom:');
+    this.homerooms.push(new Homeroom(number));
+}
+viewHomeroom(){
+    let index = prompt('Enter index of homeroom you want to view:');
+    if(index > -1 && index < this.homerooms.length){
+     this.selectedHomeroom = thishomerooms[index];
+     let description = 'Homeroom #: ' + this.selectedHomeroom.number + '\n';
+     for(let i = 0; i < this.selectedHomeroom.students.length; i++);
+     description += i + ') ' + this.selectedHomeroom.students[i].number + ' - ' 
+     + this.selectedHomeroom.students[i].grade + '\n';
+    }
+   let selection = this.showHomeroomMenuOptions(description);
+   switch(selection){
+       case '1':
+           this.createStudent();
+           break;
+        case '2':
+            this.deleteStudent();
+   } 
+
+}
+
+deleteHomeroom(){
+    let index = prompt('Enter index of homeroom you want to delete:');
+    if(index > -1 && index < this.homerooms.length){
+        this.homerooms.splice(index, 1);
+    }
+}
+
+createStudent(){
+    let name = prompt('Enter name for new student:');
+    let grade = prompt('Enter grade for new student:');
+    this.selectedHomeroom.students.push(new Student(name, grade));
+}
+
+deleteStudent(){
+    let index = prompt('Enter the index of the student you wish to delete:');
+    if(index > -1 && index < this.selectedHomeroom.students.length){
+        this.selectedHomeroom.students.splice(index, 1);
+    }
+}
+}
+
+let menu = new Menu();
+menu.start();
